@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>水果價格查詢</title>
+  <link rel="stylesheet" href="styles.css">
+  <!--引入vue3的cdn-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@next"></script>
+</head>
+<body>
+< class="container">
+  <h1>水果價格時間變化圖模擬器</h1>
+
+
+<button id="showdata">顯示資料</button>
+<table id="data">
+  <tr>
+    <th>id</th>
+    <th>date</th>
+    <th>name</th>
+    <th>price</th>
+  </tr>
+</table>
+
+
+<script>
+  document.getElementById('showdata').addEventListener('click', async () => {
+    const response = await fetch('/api/FruitPrices');
+    const data = await response.json();
+    const table = document.getElementById('data');
+    data.forEach((item) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+                <td>${item.id}</td>
+                <td>${item.date}</td>
+                <td>${item.name}</td>
+                <td>${item.price}</td>
+            `;
+      table.appendChild(row);
+    });
+  });
+
+</script>
+
+
+</body>
+</html>
+
+
